@@ -6,8 +6,6 @@ let lock = new Auth0Lock('mt9vUcHsEZB2hUvUfUDquC1ywjEOjnMJ', 'pashka95.eu.auth0.
 
 lock.on('authenticated', (authResult) => {
 
-	console.log(authResult);
-
 	lock.getProfile(authResult.idToken, (error, profile) => {
 
 		if (error) {
@@ -23,6 +21,7 @@ lock.on('authenticated', (authResult) => {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: 'Bearer ' + authResult.idToken
+
 			}
 
 		}).then(response => {

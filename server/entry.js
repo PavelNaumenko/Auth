@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import expressJWT from 'express-jwt';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
 
 const app = express();
 const port = 3000;
@@ -22,6 +21,7 @@ mongoose.connect('mongodb://localhost/brockenLeg', (err) => {
 	}
 
 });
+
 
 /**
  * Access headers to server
