@@ -45,6 +45,23 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.static(path.join(__dirname, '../view')));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
+/**
+ * error handler
+ */
+
+app.use((err, req, res, next) => {
+
+	console.log('1');
+
+	if (err.name === 'UnauthorizedError') {
+
+		console.log('I am here!');
+		res.status(401).send({ message: 'invalid token...' });
+
+	}
+
+});
+
 const secret = 'T_XI2yY3H5JTbNnYjlzvbIDs9bwWXkZRSO90Eq9x1dcO7z3xJY9bGqr2Z567jg3B';
 const authenticate = expressJWT({
 
@@ -130,6 +147,10 @@ app.post('/login', (req, res) => {
 			res.status(400).send(err);
 
 		});
+
+	console.log(req.user);
+
+	res.status(200).send({ message: 'User write to db' });
 
 });
 

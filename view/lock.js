@@ -29,6 +29,7 @@ lock.on('authenticated', (authResult) => {
 			response.json().then(data => {
 
 				console.log(data);
+
 				localStorage.setItem('token', `Bearer ${authResult.idToken}`);
 				localStorage.setItem('profile', JSON.stringify(profile));
 
