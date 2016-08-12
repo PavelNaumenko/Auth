@@ -21,15 +21,16 @@ lock.on('authenticated', (authResult) => {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: 'Bearer ' + authResult.idToken
-
 			}
 
-		}).then(response => {
+		})
+		.then(response => {
 
 			response.json().then(data => {
 
 				console.log(data);
-				localStorage.setItem('token', data.token);
+				localStorage.setItem('token', 'Bearer ' + authResult.idToken);
+				localStorage.setItem('profile', JSON.stringify(profile));
 
 			});
 
@@ -44,5 +45,3 @@ document.getElementById('btn-login').addEventListener('click', () => {
 	lock.show();
 
 });
-
-
