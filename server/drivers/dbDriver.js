@@ -46,6 +46,20 @@ export default class dbDriver {
 
 	}
 
+	readPaginate(page, limit) {
+
+		return new Promise((resolve, reject) => {
+
+			this.model.paginate({}, { page, limit }, (err, result) =>  {
+
+				(err) ? reject(err) : resolve(result);
+
+			});
+
+		});
+		
+	}
+	
 	createField(data) {
 
 		return new Promise((resolve, reject) => {

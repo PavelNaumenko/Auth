@@ -37,6 +37,25 @@ class UserController {
 
 	}
 
+	showPaginate(req, res) {
+		
+		const page = req.params.page;
+		const limit = req.params.limit;
+		
+		User.readUserWithPaginate(page, limit)
+			.then((users) => {
+				
+				res.status(200).send(users);
+				
+			})
+			.catch((result) => {
+
+				res.status(result.status).send({ message: result.err });
+				
+			});
+		
+	}
+	
 	logIn(req, res) {
 
 		const sub = req.user.sub;

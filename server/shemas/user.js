@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import autoIncrement from 'mongoose-auto-increment';
+import mongoosePaginate from 'mongoose-paginate';
 
 autoIncrement.initialize(mongoose.connection);
 
@@ -43,5 +44,6 @@ let userSchema = mongoose.Schema({
 }, { versionKey: false });
 
 userSchema.plugin(autoIncrement.plugin, 'user');
+userSchema.plugin(mongoosePaginate);
 
 export default mongoose.model('user', userSchema);

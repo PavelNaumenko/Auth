@@ -24,6 +24,14 @@ export default [
 		action: UserController.logIn,
 		method: 'post'
 
+	},
+	
+	{
+		
+		url: '/users/:page/:limit',
+		action: UserController.showPaginate,
+		method: 'get'
+		
 	}
 
 ];

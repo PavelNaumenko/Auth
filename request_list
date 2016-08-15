@@ -74,3 +74,25 @@ fetch('http://localhost:3000/user/:id', {
 	});
 
 });
+
+/*
+* GET to show users with pagination
+*/
+
+fetch('http://localhost:3000/users/:page/:limit', {
+
+    method: 'GET',
+	headers: {
+		'Content-Type': "application/json",
+        'Authorization': localStorage.getItem('token')
+	}
+})
+.then(response => {
+
+	response.json().then(data => {
+
+		console.log(data);
+
+	});
+
+});

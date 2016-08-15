@@ -53,6 +53,26 @@ class User {
 
 	}
 
+	readUserWithPaginate(page, limit) {
+		
+		return new Promise((resolve, reject) => {
+
+			userDriver.readPaginate(page, limit)
+				.then((users) => {
+
+					resolve(users);
+
+				})
+				.catch((err) => {
+
+					reject({ err, status: 400 });
+
+				});
+			
+		});
+		
+	}
+	
 	parceProfile(sub, profile) {
 
 		return {
