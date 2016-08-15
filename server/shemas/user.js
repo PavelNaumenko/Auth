@@ -10,6 +10,34 @@ let userSchema = mongoose.Schema({
 		type: String,
 		default: ''
 
+	},
+
+	email: {
+
+		type: String,
+		default: ''
+
+	},
+
+	name: {
+
+		type: String,
+		default: ''
+
+	},
+
+	picture: {
+
+		type: String,
+		default: ''
+
+	},
+
+	nickname: {
+
+		type: String,
+		default: ''
+
 	}
 
 }, { versionKey: false });

@@ -1,7 +1,5 @@
 "use strict";
 
-console.log('Hello');
-
 let lock = new Auth0Lock('mt9vUcHsEZB2hUvUfUDquC1ywjEOjnMJ', 'pashka95.eu.auth0.com');
 
 lock.on('authenticated', (authResult) => {
@@ -15,13 +13,14 @@ lock.on('authenticated', (authResult) => {
 
 		}
 
-		fetch('http://localhost:3000/login', {
+		fetch('http://localhost:3000/users/new', {
 
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: 'Bearer ' + authResult.idToken
-			}
+			},
+			body: JSON.stringify({ profile })
 
 		})
 		.then(response => {
@@ -31,7 +30,6 @@ lock.on('authenticated', (authResult) => {
 				console.log(data);
 
 				localStorage.setItem('token', `Bearer ${authResult.idToken}`);
-				localStorage.setItem('profile', JSON.stringify(profile));
 
 			});
 

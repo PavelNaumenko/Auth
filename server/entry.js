@@ -4,7 +4,8 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import expressJWT from 'express-jwt';
 import mongoose from 'mongoose';
-import userModel from './shema/user';
+import createRouter from './routes/router';
+import arr from './routes/index';
 
 mongoose.connect('mongodb://root:root@ds153705.mlab.com:53705/brocken_leg', (err) => {
 
@@ -22,6 +23,10 @@ mongoose.connect('mongodb://root:root@ds153705.mlab.com:53705/brocken_leg', (err
 
 const app = express();
 const port = 3000;
+
+let router = express.Router();
+
+createRouter(arr, router);
 
 /**
  * Access headers to server
@@ -45,17 +50,15 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.static(path.join(__dirname, '../view')));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
+
 /**
  * error handler
  */
 
 app.use((err, req, res, next) => {
 
-	console.log('1');
-
 	if (err.name === 'UnauthorizedError') {
-
-		console.log('I am here!');
+		
 		res.status(401).send({ message: 'invalid token...' });
 
 	}
@@ -70,8 +73,11 @@ const authenticate = expressJWT({
 
 });
 
-app.use('/login', authenticate);
+app.use('/users/new', authenticate);
 app.use('/private', authenticate);
+app.use('/all', authenticate);
+app.use('/user/:id', authenticate);
+app.use('/', router);
 
 /**
  * Require frontend dir public file
@@ -80,77 +86,6 @@ app.use('/private', authenticate);
 app.get('/', (req, res) => {
 
 	res.sendFile(path.join(__dirname, '../view'));
-
-});
-
-app.post('/login', (req, res) => {
-
-	const token = req.headers.authorization;
-	const sub = req.user.sub;
-
-	let promise = new Promise((resolve, reject) => {
-
-		userModel.findOne({ sub }, (err, user) => {
-
-			if (err) {
-
-				reject(err);
-
-			}
-
-			if (user) {
-
-				resolve({ message: 'Вход выполнен успешно',
-					user });
-
-			}
-
-			if (!user) {
-
-				let innerPromise = new Promise((resolve, reject) => {
-
-					userModel.create({ sub }, (err, user) => {
-
-						(err) ? reject(err) : resolve({ message: 'Вы зарегистрированы',
-						user });
-
-					});
-
-				});
-
-				innerPromise
-					.then((result) => {
-
-						resolve(result);
-
-					})
-					.catch((err) => {
-
-						reject(err);
-
-					});
-
-			}
-
-		});
-
-	});
-
-	promise
-		.then((result) => {
-
-			res.status(200).send(result);
-
-		})
-		.catch((err) => {
-
-			res.status(400).send(err);
-
-		});
-
-	console.log(req.user);
-
-	res.status(200).send({ message: 'User write to db' });
 
 });
 
