@@ -43,7 +43,7 @@ let userSchema = mongoose.Schema({
 
 }, { versionKey: false });
 
-userSchema.plugin(autoIncrement.plugin, 'user');
+userSchema.plugin(autoIncrement.plugin, { model: 'user', field: 'id' });
 userSchema.plugin(mongoosePaginate);
 
 export default mongoose.model('user', userSchema);

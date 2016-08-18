@@ -83,15 +83,15 @@ export default class dbDriver {
 
 	}
 	
-	updateField(_id, data) {
+	updateField(id, data) {
 
 		return new Promise((resolve, reject) => {
 
 			if (data !== '') {
 
-				this.model.findOneAndUpdate(_id, data, (err) => {
+				this.model.findOneAndUpdate(id, data, { new: true }, (err, data) => {
 
-					(err) ? reject(err) : resolve();
+					(err) ? reject(err) : resolve(data);
 
 				});
 
@@ -100,6 +100,20 @@ export default class dbDriver {
 				reject('Try to update user with empty params');
 
 			}
+
+		});
+
+	}
+
+	deleteField(id) {
+
+		return new Promise((resolve, reject) => {
+
+			this.model.findOneAndRemove(id, (err, doc) => {
+
+				(err) ? reject(err) : resolve(doc);
+
+			});
 
 		});
 

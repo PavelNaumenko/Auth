@@ -21,9 +21,8 @@ class UserController {
 	showOne(req, res) {
 		
 		const id = req.params.id || '';
-		const sub = req.user.sub;
 		
-		User.readUser(sub, id)
+		User.readUser(id)
 			.then((user) => {
 				
 				res.status(200).send({ message: user });

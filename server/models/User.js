@@ -24,22 +24,14 @@ class User {
 		
 	}
 
-	readUser(sub, id) {
+	readUser(id) {
 
 		return new Promise((resolve, reject) => {
 
-			userDriver.readOne({ sub })
+			userDriver.readOne({ id })
 				.then((user) => {
 
-					if (id == user._id) {
-
-						resolve(user);
-
-					} else {
-
-						reject({ err: 'Вы не имеета права доступа', status: 403 });
-
-					}
+					(user) ? resolve(user) : reject({ err: 'Page not found', status: 404 });
 
 
 				})
