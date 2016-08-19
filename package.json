@@ -4,7 +4,8 @@
   "description": "",
   "main": "server/entry.js",
   "scripts": {
-    "start": "babel-node server/entry.js"
+    "start": "babel-node server/entry.js",
+    "test": "mocha test/apiTest/userController.js --compilers js:babel-core/register --timeout 10000"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +23,8 @@
     "babel-preset-stage-0": "^6.5.0",
     "body-parser": "^1.15.1",
     "eslint": "^3.2.2",
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "mocha": "^3.0.2",
+    "node-fetch": "^1.6.0"
   }
 }
-

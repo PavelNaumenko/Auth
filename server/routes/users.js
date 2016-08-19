@@ -28,10 +28,26 @@ export default [
 	
 	{
 		
-		url: '/users/:page/:limit',
+		url: '/users',
 		action: UserController.showPaginate,
 		method: 'get'
 		
+	},
+
+	{
+
+		url: '/user/:id',
+		action: UserController.update,
+		method: 'put'
+
+	},
+
+	{
+
+		url: '/user/:id',
+		action: UserController.delete,
+		method: 'delete'
+
 	}
 
 ];

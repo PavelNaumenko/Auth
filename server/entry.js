@@ -77,7 +77,7 @@ app.use('/users/new', authenticate);
 app.use('/private', authenticate);
 app.use('/all', authenticate);
 app.use('/user/:id', authenticate);
-app.use('/users/:page/:limit', authenticate);
+app.use('/users', authenticate);
 app.use('/', router);
 
 /**
@@ -125,3 +125,5 @@ process.on('uncaughtException', (err) => {
 	console.log(`CAUGHT EXCEPTION: ${err.message}`);
 
 });
+
+module.exports = app;

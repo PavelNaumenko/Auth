@@ -22,10 +22,10 @@ class UserController {
 		
 		const id = req.params.id || '';
 		
-		User.readUser(id)
+		User.readUser({ id })
 			.then((user) => {
 				
-				res.status(200).send({ message: user });
+				res.status(200).send({ user });
 
 			})
 			.catch((result) => {
@@ -38,8 +38,8 @@ class UserController {
 
 	showPaginate(req, res) {
 		
-		const page = req.params.page;
-		const limit = req.params.limit;
+		const page = req.query.page;
+		const limit = req.query.limit;
 		
 		User.readUserWithPaginate(page, limit)
 			.then((users) => {
@@ -67,8 +67,46 @@ class UserController {
 
 			})
 			.catch((result) => {
+				
+				res.status(result.status).send({ message: result.err });
 
-				console.log(result.err);
+			});
+
+	}
+	
+	update(req, res) {
+		
+		const id = req.params.id || '';
+		const sub = req.user.sub;
+		const updating = req.body.updating;
+		
+		User.checkAccessAndUpdate(id, sub, updating)
+			.then((data) => {
+				
+				res.status(200).send(data);
+				
+			})
+			.catch((result) => {
+				
+				res.status(result.status).send({ message: result.err });
+				
+			});
+		
+	}
+
+	delete(req, res) {
+
+		const id = req.params.id || '';
+		const sub = req.user.sub;
+
+		User.checkAccessAndDelete(id, sub)
+			.then((data) => {
+
+				res.status(200).send(data);
+
+			})
+			.catch((result) => {
+
 				res.status(result.status).send({ message: result.err });
 
 			});

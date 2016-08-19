@@ -79,7 +79,7 @@ fetch('http://localhost:3000/user/:id', {
 * GET to show users with pagination
 */
 
-fetch('http://localhost:3000/users/:page/:limit', {
+fetch('http://localhost:3000/users?page=2&limit=3', {
 
     method: 'GET',
 	headers: {
@@ -95,4 +95,22 @@ fetch('http://localhost:3000/users/:page/:limit', {
 
 	});
 
+});
+
+/*
+* PUT to update user data
+*/
+
+fetch("http://localhost:3000/user/{ ID }", {
+    method: "PUT",
+    headers: {
+        'Content-Type': "application/json",
+        'Authorization': localStorage.getItem('token')
+    },
+    body: JSON.stringify({ profile })
+})
+.then( response => {
+    response.json().then( data => {
+        console.log(data)
+    });
 });

@@ -83,14 +83,14 @@ export default class dbDriver {
 
 	}
 	
-	updateField(id, data) {
+	updateField(criteria, data) {
 
 		return new Promise((resolve, reject) => {
 
 			if (data !== '') {
 
-				this.model.findOneAndUpdate(id, data, { new: true }, (err, data) => {
-
+				this.model.findOneAndUpdate(criteria, data, { new: true }, (err, data) => {
+					
 					(err) ? reject(err) : resolve(data);
 
 				});
@@ -105,11 +105,11 @@ export default class dbDriver {
 
 	}
 
-	deleteField(id) {
+	deleteField(criteria) {
 
 		return new Promise((resolve, reject) => {
 
-			this.model.findOneAndRemove(id, (err, doc) => {
+			this.model.findOneAndRemove(criteria, (err, doc) => {
 
 				(err) ? reject(err) : resolve(doc);
 
